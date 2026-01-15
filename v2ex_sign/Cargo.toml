@@ -1,0 +1,12 @@
+[package]
+name = "v2ex_sign"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.13", features = ["json", "cookies"] }
+scraper = "0.25.0"
+serde_json = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["local-time"] }
