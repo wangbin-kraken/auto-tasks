@@ -12,8 +12,8 @@ jobs:
     env:
       TZ: Asia/Shanghai
       V2EX_COOKIE: ${{ secrets.V2EX_COOKIE }}
-      TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-      TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
     steps:
       - name: 📥 检出代码
@@ -25,7 +25,7 @@ jobs:
 
       - name: ✅ 检查环境变量
         run: |
-          for var in V2EX_COOKIE TG_BOT_TOKEN TG_CHAT_ID; do
+          for var in V2EX_COOKIE TELEGRAM_BOT_TOKEN TELEGRAM_CHAT_ID; do
             if [ -z "${!var}" ]; then
               echo "❌ $var 未设置或者为空. 请在 GitHub Secrets 中配置."
               exit 1
