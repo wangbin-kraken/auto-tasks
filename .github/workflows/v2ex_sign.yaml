@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache@v5
         with:
           path: |
-            target/release/v2ex_sign
+            v2ex_sign/target/release/v2ex_sign
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: 编译
