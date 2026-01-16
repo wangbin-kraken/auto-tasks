@@ -122,8 +122,12 @@ impl V2EXSigner {
             &balance_doc,
             "table.data tr:nth-child(2) > td:nth-child(3) > span > strong",
         );
-        let message = format!(
-            "👤 用户名：{}\n📅 签到状态：{}\n💰 每日奖励：{}\n🏦 账户总额：{}\n🗓️ {}",
+        let message = format!(r#"📝 V2EX签到信息 📝
+👤 用户名：{}
+📅 签到状态：{}
+💰 每日奖励：{}
+🏦 账户总额：{}
+🗓️ {}"#,
             username.unwrap_or("未知用户".to_string()),
             sign_status,
             daily_reward.unwrap_or("未知".to_string()),
