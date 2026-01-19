@@ -37,7 +37,7 @@ jobs:
       - name: 🐍 设置 Python 环境
         uses: actions/setup-python@v6
         with:
-          python-version: "3.13"
+          python-version: "3.12"
           cache: "pip"
 
       - name: 🐍 安装依赖
