@@ -1,0 +1,50 @@
+name: V2EX每日签到
+
+# 定时执行 & 手动触发
+on:
+  schedule:
+    - cron: "23 17 * * *" # 每天 23:17 UTC（北京时间 07:17）
+  workflow_dispatch: # 可手动触发
+
+jobs:
+  telegram_sign:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+      TELEGRAM_COOKIE: ${{ secrets.TELEGRAM_COOKIE }}
+      TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+      TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
+      TELEGRAM_SIGN_TASKS: ${{ secrets.TELEGRAM_SIGN_TASKS }}
+
+    steps:
+      - name: 📥 检出代码
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            telegram-sign
+
+      - name: ✅ 检查环境变量
+        run: |
+          for var in TELEGRAM_COOKIE TELEGRAM_API_ID TELEGRAM_API_HASH TELEGRAM_SIGN_TASKS; do
+            if [ -z "${!var}" ]; then
+              echo "❌ $var 未设置或者为空. 请在 GitHub Secrets 中配置."
+              exit 1
+            fi
+          done
+          echo "✅ 所有环境变量已配置"
+
+      - name: 🐍 设置 Python 环境
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - name: 🐍 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 运行Telegram签到任务
+        working-directory: telegram-sign
+        run: |
+          echo "实际开始运行时间: $(date '+%Y-%m-%d %H:%M:%S')"
+          python main.py
