@@ -68,4 +68,3 @@
 ### 排查要点
 - **Session 失效**：如果账号退出了所有会话，`TELEGRAM_SESSION` 会失效，需要重新生成。
 - **Chat ID 错误**：确保 `chat_id` 正确。个人 ID 为正数，群组/频道 ID 通常以 `-100` 开头。
-- **详细问题排查**：请参考 [telegram-sign/README.md](telegram-sign/README.md) 中的排查指南。
