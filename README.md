@@ -41,7 +41,6 @@
 - 一个基于 [Telethon](https://github.com/LonamiWebs/Telethon) 的通用 Telegram 任务脚本，可用于自动签到、发送消息、执行预设任务等。
 - 脚本位于 `telegram-sign/`。
 - 工作流存放于 `.github/workflows/telegram-sign.yaml`。
-- **[👉 查看详细文档和完整配置说明](telegram-sign/README.md)**
 
 ### 配置（必须）
 在仓库 `Settings` → `Secrets` → `Actions` 中添加如下 secret：
