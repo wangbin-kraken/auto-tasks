@@ -37,7 +37,7 @@ jobs:
       - name: 🐍 设置 Python 环境
         uses: actions/setup-python@v6
         with:
-          python-version: "3.12"
+          python-version: "3.14"
           cache: "pip"
 
       - name: 🐍 安装依赖
@@ -48,4 +48,4 @@ jobs:
         working-directory: telegram-sign
         run: |
           echo "实际开始运行时间: $(date '+%Y-%m-%d %H:%M:%S')"
-          python main.py
+          python3 main.py
