@@ -41,6 +41,7 @@ jobs:
           cache: "pip"
 
       - name: 🐍 安装依赖
+        working-directory: telegram-sign
         run: pip install -r requirements.txt
 
       - name: 运行Telegram签到任务
