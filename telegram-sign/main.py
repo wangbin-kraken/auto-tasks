@@ -94,23 +94,22 @@ async def execute_task(client: TelegramClient, task: SignTask):
     try:
         async with client.conversation(chat_id, timeout=10) as conv:
             if message_type == MessageType.FILE:
-                await conv.send_file(
+                sent_message = await conv.send_file(
                     task.file,
                     caption=task.caption,
                 )
                 sent_content = f"{task.caption}: {task.file}" or f"[文件: {task.file}]"
             else:
                 parse_mode = task.type.value if task.type != MessageType.TEXT else None
-                await conv.send_message(task.text, parse_mode=parse_mode)
+                sent_message = await conv.send_message(task.text, parse_mode=parse_mode)
                 sent_content = task.text
 
             logger.info(f"📡 已发送至 [{name}]，等待回复...")
 
             try:
                 while True:
-                    response = await conv.get_response(timeout=5)
-                    msg_content = response.text or "[非文本消息]"
-                    replies.append(msg_content)
+                    response = await conv.get_response(timeout=5, message=sent_message)
+                    replies.append(response.text or "[非文本消息]")
             except asyncio.TimeoutError:
                 # 如果几秒内没新消息了，说明对方发完了
                 pass
