@@ -3,7 +3,6 @@ name: V2EX每日签到
 # 定时执行 & 手动触发
 on:
   schedule:
-    # V2EX 北京时间早上08:00重置签到时间
     - cron: "57 23 * * *" # 每天 23:57 UTC（北京时间 07:57）
   workflow_dispatch: # 可手动触发
 
@@ -22,7 +21,7 @@ jobs:
         with:
           fetch-depth: 1
           sparse-checkout: |
-            v2ex_sign
+            v2ex-sign
 
       - name: ✅ 检查环境变量
         run: |
@@ -34,25 +33,18 @@ jobs:
           done
           echo "✅ 所有环境变量已配置"
 
-      - name: 缓存
-        uses: actions/cache@v5
+      - name: 🐍 设置 Python 环境
+        uses: actions/setup-python@v6
         with:
-          path: |
-            v2ex_sign/target/release/v2ex_sign
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          python-version: "3.14"
+          cache: "pip"
 
-      - name: 编译
-        working-directory: v2ex_sign
-        run: |
-          if [ ! -f "./target/release/v2ex_sign" ]; then
-            echo "可执行文件 v2ex_sign 不存在，开始编译..."
-            cargo build --release --locked
-          else
-            echo "可执行文件 v2ex_sign 已存在，跳过编译."
-          fi
+      - name: 🐍 安装依赖
+        working-directory: v2ex-sign
+        run: pip install -r requirements.txt
 
       - name: 运行V2EX签到任务
-        working-directory: v2ex_sign
+        working-directory: v2ex-sign
         run: |
           echo "实际开始运行时间: $(date '+%Y-%m-%d %H:%M:%S')"
-          ./target/release/v2ex_sign
+          python3 main.py
