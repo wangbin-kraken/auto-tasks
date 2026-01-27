@@ -3,11 +3,11 @@ name: V2EX每日签到
 # 定时执行 & 手动触发
 on:
   schedule:
-    - cron: "37 23 * * *" # 每天 23:37 UTC（北京时间 07:37）
+    - cron: "15 23 * * *" # 每天 23:15 UTC（北京时间 07:15）
   workflow_dispatch: # 可手动触发
 
 jobs:
-  v2ex_sign:
+  v2ex-sign:
     runs-on: ubuntu-latest
     env:
       TZ: Asia/Shanghai
