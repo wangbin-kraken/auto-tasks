@@ -99,7 +99,7 @@ class V2EXSigner:
             final_soup = BeautifulSoup(final_response.text, "html.parser")
 
             days = self._parse_selector_text(
-                final_soup, "#Main > div.box > div:nth-child(3) > span"
+                final_soup, "#Main > div.box > div.cell:nth-child(3) > span"
             )
             username = self._parse_selector_text(
                 final_soup, "#Top > div > div > div.tools > a:nth-child(2)"
